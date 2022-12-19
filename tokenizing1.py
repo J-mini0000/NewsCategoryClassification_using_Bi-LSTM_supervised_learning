@@ -3,6 +3,10 @@
 import pandas as pd
 from konlpy.tag import Okt
 
+import os
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"]="0,1,2"
+
 okt=Okt()
 nouns=[]
 
@@ -15,20 +19,21 @@ for j in newsname:
         stopwords.append(nntk[k])
 stopwords=list(set(stopwords))
 
-news1 = pd.read_csv("1-8월 뉴스(특수문자 및 불용어 제거).csv", sep=",",index_col=0)
-# for i in range(len(news1['text'])):
-#     token= okt.nouns(news1['text'][i])
-#     print("token1", token)
-#     token = [t for t in token if t not in stopwords]
-#     print("token2", token)
-#     nouns.append(token)
-#     print(i/len(news1['text'])*100,"%")
-# print(nouns)
-nouns = [[] for i in range(len(news1))]
+news1 = pd.read_csv("1-8월 뉴스(특수문자 및 불용어 제거).csv", sep=",",index_col=False)
+print(news1)
+for i in range(len(news1['text'])):
+    token= okt.nouns(news1['text'][i])
+    print("token1", token)
+    token = [t for t in token if t not in stopwords]
+    print("token2", token)
+    nouns.append(token)
+    print(i/len(news1['text'])*100,"%")
+print(nouns)
+#nouns = [[] for i in range(len(news1))]
 
-nouns[1]=["여깃지롱"]
-nouns[3]=["여깃지롱"]
-nouns[4]=["여깃지롱"]
+#nouns[1]=["여깃지롱"]
+#nouns[3]=["여깃지롱"]
+#nouns[4]=["여깃지롱"]
 
 news1['nouns']=nouns
 print(news1.head())

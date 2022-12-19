@@ -1,6 +1,5 @@
 import pandas as pd
 
-import matplotlib.pyplot as plt
 # pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 news1 = pd.read_csv("1-8월 뉴스.csv", sep=",")
@@ -26,4 +25,5 @@ for i in range(len(news1)): #데이터 길이
     # print(news1)
     # print(news1['text'][i])
 
+print(news1)
 news1.to_csv("1-8월 뉴스(특수문자 및 불용어 제거).csv", mode='w',index=0)
