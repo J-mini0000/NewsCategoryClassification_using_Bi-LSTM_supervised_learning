@@ -16,14 +16,20 @@ for j in newsname:
 stopwords=list(set(stopwords))
 
 news1 = pd.read_csv("1-8월 뉴스(특수문자 및 불용어 제거).csv", sep=",",index_col=0)
-for i in range(len(news1['text'])):
-    token= okt.nouns(news1['text'][i])
-    print("token1", token)
-    token = [t for t in token if t not in stopwords]
-    print("token2", token)
-    nouns.append(token)
-    print(i/len(news1['text'])*100,"%")
-print(nouns)
+# for i in range(len(news1['text'])):
+#     token= okt.nouns(news1['text'][i])
+#     print("token1", token)
+#     token = [t for t in token if t not in stopwords]
+#     print("token2", token)
+#     nouns.append(token)
+#     print(i/len(news1['text'])*100,"%")
+# print(nouns)
+nouns = [[] for i in range(len(news1))]
+
+nouns[1]=["여깃지롱"]
+nouns[3]=["여깃지롱"]
+nouns[4]=["여깃지롱"]
+
 news1['nouns']=nouns
 print(news1.head())
 
@@ -37,5 +43,5 @@ news1 = news1.drop(drop_index_list)  # 해당 index를 지우기
 
 # index를 지우면 순회시 index 값이 중간중간 비기 때문에 index를 다시 지정
 news1.index = range(len(news1))
-
+print(news1)
 news1.to_csv("1-8월 뉴스(특수문자 및 불용어 제거,명사추가).csv", mode='w',index=0)
